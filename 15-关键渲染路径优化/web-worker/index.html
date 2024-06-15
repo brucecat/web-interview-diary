@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Worker Example</title>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <script>
+        // main.js
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建一个新的 Worker
+            const myWorker = new Worker('worker.js');
+
+            // 发送消息给 Worker
+            myWorker.postMessage(1000000); // 例如，发送一个大数字
+
+            // 监听来自 Worker 的消息
+            myWorker.addEventListener('message', function(e) {
+                console.log('Main thread received message from worker:', e.data);
+                // 这里可以更新 UI 或做其他操作
+            });
+
+            // 监听错误
+            myWorker.addEventListener('error', function(e) {
+                console.error('Worker error:', e.message);
+            });
+        });
+    </script>
+</body>
+</html>
